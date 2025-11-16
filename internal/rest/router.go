@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/gin-gonic/gin"
-	"github.com/nmarsollier/wishlistgo/internal/env"
-	"github.com/nmarsollier/wishlistgo/internal/rest/server"
+	"github.com/pauusosaa/wishlistgo/internal/env"
+	"github.com/pauusosaa/wishlistgo/internal/rest/server"
 )
 
 // Start levanta el servidor REST de Wishlist

@@ -1,8 +1,8 @@
 package di
 
 import (
-	"github.com/nmarsollier/wishlistgo/internal/services"
-	"github.com/nmarsollier/wishlistgo/internal/wishlist"
+	"github.com/pauusosaa/wishlistgo/internal/services"
+	"github.com/pauusosaa/wishlistgo/internal/wishlist"
 )
 
 // Injector define las dependencias compartidas

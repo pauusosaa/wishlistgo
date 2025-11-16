@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/nmarsollier/wishlistgo/internal/rest/server"
+	"github.com/pauusosaa/wishlistgo/internal/rest/server"
 )
 
 // initGetWishlist registra GET /v1/wishlist

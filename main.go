@@ -1,7 +1,6 @@
 package main
 
-func main() {
-import "github.com/nmarsollier/wishlistgo/internal/rest"
+import "github.com/pauusosaa/wishlistgo/internal/rest"
 
 func main() {
 	rest.Start()

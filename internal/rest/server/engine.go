@@ -2,7 +2,7 @@ package server
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/nmarsollier/wishlistgo/internal/di"
+	"github.com/pauusosaa/wishlistgo/internal/di"
 )
 
 var engine *gin.Engine = nil
