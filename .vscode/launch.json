@@ -1,0 +1,52 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch WishlistGo",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/main.go",
+            "env": {
+                "PORT": "3005",
+                "SERVER_NAME": "wishlistgo",
+                "MONGO_URL": "mongodb://admin:admin123@localhost:27017/?authSource=admin",
+                "AUTH_SERVICE_URL": "http://localhost:3000",
+                "CATALOG_SERVICE_URL": "http://localhost:3002",
+                "CART_SERVICE_URL": "http://localhost:3003",
+                "FLUENT_URL": "localhost:24224"
+            },
+            "args": [],
+            "showLog": true,
+            "trace": "log"
+        },
+        {
+            "name": "Launch WishlistGo (Debug)",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}",
+            "env": {
+                "PORT": "3005",
+                "SERVER_NAME": "wishlistgo",
+                "MONGO_URL": "mongodb://admin:admin123@localhost:27017/?authSource=admin",
+                "AUTH_SERVICE_URL": "http://localhost:3000",
+                "CATALOG_SERVICE_URL": "http://localhost:3002",
+                "CART_SERVICE_URL": "http://localhost:3003",
+                "FLUENT_URL": "localhost:24224"
+            },
+            "args": [],
+            "showLog": true,
+            "trace": "verbose"
+        },
+        {
+            "name": "Attach to WishlistGo",
+            "type": "go",
+            "request": "attach",
+            "mode": "local",
+            "processId": 0,
+            "showLog": true
+        }
+    ]
+}
+

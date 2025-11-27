@@ -2,7 +2,7 @@ package server
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/pauusosaa/wishlistgo/internal/di"
+	"github.com/nmarsollier/commongo/rst"
 )
 
 var engine *gin.Engine = nil
@@ -15,13 +15,7 @@ func Router() *gin.Engine {
 
 	engine = gin.Default()
 	engine.Use(DiInjectorMiddleware())
+	engine.Use(rst.ErrorHandler)
 
 	return engine
 }
-
-// GinDi devuelve el Injector desde el contexto
-func GinDi(c *gin.Context) di.Injector {
-	return c.MustGet("di").(di.Injector)
-}
-
-

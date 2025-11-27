@@ -1,6 +1,11 @@
 package wishlist
 
-// Service define las operaciones de dominio sobre Wishlist
+import (
+	"time"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
+
 type Service interface {
 	GetByUserID(userID string) (*Wishlist, error)
 	AddItem(userID, articleID string, notes *string) (*Item, error)
@@ -11,7 +16,6 @@ type service struct {
 	repo Repository
 }
 
-// NewService crea un nuevo servicio de dominio de wishlist
 func NewService(repo Repository) Service {
 	return &service{
 		repo: repo,
@@ -19,7 +23,21 @@ func NewService(repo Repository) Service {
 }
 
 func (s *service) GetByUserID(userID string) (*Wishlist, error) {
-	return s.repo.FindByUserID(userID)
+	w, err := s.repo.FindByUserID(userID)
+	if err != nil {
+		return nil, err
+	}
+	if w == nil {
+		return &Wishlist{
+			ID:           primitive.NilObjectID,
+			UserID:       userID,
+			Items:        []*Item{},
+			CreationDate: "",
+			UpdateDate:   "",
+			TotalItems:   0,
+		}, nil
+	}
+	return w, nil
 }
 
 func (s *service) AddItem(userID, articleID string, notes *string) (*Item, error) {
@@ -28,7 +46,16 @@ func (s *service) AddItem(userID, articleID string, notes *string) (*Item, error
 		return nil, err
 	}
 
-	// Evitar duplicados
+	if w == nil {
+		w = &Wishlist{
+			ID:           primitive.NilObjectID,
+			UserID:       userID,
+			Items:        []*Item{},
+			CreationDate: time.Now().UTC().Format(time.RFC3339),
+			UpdateDate:   time.Now().UTC().Format(time.RFC3339),
+		}
+	}
+
 	for _, it := range w.Items {
 		if it.ArticleID == articleID {
 			return it, nil
@@ -36,14 +63,15 @@ func (s *service) AddItem(userID, articleID string, notes *string) (*Item, error
 	}
 
 	item := &Item{
-		ID:         "item-1", // TODO: usar UUID
+		ID:         primitive.NewObjectID(),
 		WishlistID: w.ID,
 		ArticleID:  articleID,
-		AddedAt:    "2024-01-15T10:30:00Z",
+		AddedAt:    time.Now().UTC().Format(time.RFC3339),
 		Notes:      notes,
 	}
 
 	w.Items = append(w.Items, item)
+	w.UpdateDate = time.Now().UTC().Format(time.RFC3339)
 
 	if err := s.repo.Save(w); err != nil {
 		return nil, err
@@ -53,7 +81,13 @@ func (s *service) AddItem(userID, articleID string, notes *string) (*Item, error
 }
 
 func (s *service) RemoveItem(userID, articleID string) (bool, error) {
+	w, err := s.repo.FindByUserID(userID)
+	if err != nil {
+		return false, err
+	}
+	if w == nil {
+		return false, nil
+	}
+
 	return s.repo.RemoveItem(userID, articleID)
 }
-
-

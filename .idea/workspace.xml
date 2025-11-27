@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="61dba940-9ccf-4802-8916-057782f51859" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/di/injector.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/di/injector.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/env/env.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/env/env.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/rest/delete_wishlist_article_id.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/rest/delete_wishlist_article_id.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/rest/get_wishlist.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/rest/get_wishlist.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/rest/post_wishlist_article.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/rest/post_wishlist_article.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/rest/post_wishlist_articles_article_id_cart.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/rest/post_wishlist_articles_article_id_cart.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/rest/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/rest/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/rest/server/di_middleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/rest/server/di_middleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/rest/server/engine.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/rest/server/engine.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/services/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/services/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/wishlist/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/wishlist/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/wishlist/schema.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/wishlist/schema.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/wishlist/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/wishlist/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="362gJr8ccaXlP4rfHoEIOGDddDc" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/Users/paulinasosa/go/wishlistgo",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="61dba940-9ccf-4802-8916-057782f51859" name="Changes" comment="" />
+      <created>1764210011328</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1764210011328</updated>
+    </task>
+    <servers />
+  </component>
+</project>

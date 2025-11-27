@@ -1,39 +1,34 @@
 package rest
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"github.com/nmarsollier/commongo/rst"
+	"github.com/nmarsollier/commongo/security"
 	"github.com/pauusosaa/wishlistgo/internal/rest/server"
 )
 
-// initGetWishlist registra GET /v1/wishlist
 func initGetWishlist(engine *gin.Engine) {
 	engine.GET(
 		"/v1/wishlist",
+		server.ValidateAuthentication,
 		getWishlist,
 	)
 }
 
-// getWishlist obtiene la wishlist del usuario
 func getWishlist(c *gin.Context) {
-	// En una versión real, el user_id vendría del token JWT (Auth Service)
-	userID := c.GetHeader("X-Demo-User-ID")
-	if userID == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "X-Demo-User-ID header requerido"})
-		return
-	}
+	user := c.MustGet("user").(security.User)
+	tokenString := c.MustGet("tokenString").(string)
 
 	deps := server.GinDi(c)
-	wSvc := deps.WishlistService()
+	wSvc := deps.WishlistAppService()
 
-	w, err := wSvc.GetWishlist(userID)
+	w, err := wSvc.GetWishlist(user.ID, tokenString)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		rst.AbortWithError(c, err)
 		return
 	}
 
-	c.JSON(http.StatusOK, w)
+	c.JSON(200, w)
 }
 
 

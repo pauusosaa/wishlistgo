@@ -1,45 +1,40 @@
 package rest
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"github.com/nmarsollier/commongo/errs"
+	"github.com/nmarsollier/commongo/rst"
+	"github.com/nmarsollier/commongo/security"
 	"github.com/pauusosaa/wishlistgo/internal/rest/server"
 )
 
-// initDeleteWishlistArticle registra DELETE /v1/wishlist/article/:article_id
 func initDeleteWishlistArticle(engine *gin.Engine) {
 	engine.DELETE(
 		"/v1/wishlist/article/:article_id",
+		server.ValidateAuthentication,
 		deleteWishlistArticle,
 	)
 }
 
-// deleteWishlistArticle elimina un artículo de la wishlist
 func deleteWishlistArticle(c *gin.Context) {
-	userID := c.GetHeader("X-Demo-User-ID")
-	if userID == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "X-Demo-User-ID header requerido"})
-		return
-	}
-
+	user := c.MustGet("user").(security.User)
 	articleID := c.Param("article_id")
 
 	deps := server.GinDi(c)
-	wSvc := deps.WishlistService()
+	wSvc := deps.WishlistAppService()
 
-	found, err := wSvc.RemoveFromWishlist(userID, articleID)
+	found, err := wSvc.RemoveFromWishlist(user.ID, articleID)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		rst.AbortWithError(c, err)
 		return
 	}
 
 	if !found {
-		c.JSON(http.StatusNotFound, gin.H{"error": "artículo no está en la wishlist"})
+		rst.AbortWithError(c, errs.NotFound)
 		return
 	}
 
-	c.Status(http.StatusNoContent)
+	c.Status(204)
 }
 
 

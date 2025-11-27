@@ -4,6 +4,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/nmarsollier/commongo/errs"
+	"github.com/nmarsollier/commongo/rst"
+	"github.com/nmarsollier/commongo/security"
 	"github.com/pauusosaa/wishlistgo/internal/rest/server"
 )
 
@@ -12,38 +15,42 @@ type addToWishlistBody struct {
 	Notes     *string `json:"notes"`
 }
 
-// initPostWishlistArticle registra POST /v1/wishlist/article
 func initPostWishlistArticle(engine *gin.Engine) {
 	engine.POST(
 		"/v1/wishlist/article",
+		server.ValidateAuthentication,
 		addToWishlist,
 	)
 }
 
-// addToWishlist agrega un artículo a la wishlist del usuario
 func addToWishlist(c *gin.Context) {
-	userID := c.GetHeader("X-Demo-User-ID")
-	if userID == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "X-Demo-User-ID header requerido"})
-		return
-	}
+	user := c.MustGet("user").(security.User)
+	tokenString := c.MustGet("tokenString").(string)
 
 	var body addToWishlistBody
 	if err := c.ShouldBindJSON(&body); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		rst.AbortWithError(c, err)
 		return
 	}
 
 	deps := server.GinDi(c)
-	wSvc := deps.WishlistService()
+	wSvc := deps.WishlistAppService()
 
-	item, err := wSvc.AddToWishlist(userID, body.ArticleID, body.Notes)
+	item, err := wSvc.AddToWishlist(user.ID, body.ArticleID, body.Notes, tokenString)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		if validationErr, ok := err.(*errs.ValidationErr); ok {
+			for _, msg := range validationErr.Messages {
+				if msg.Path == "article_id" {
+					c.JSON(http.StatusConflict, gin.H{"error": msg.Message})
+					return
+				}
+			}
+		}
+		rst.AbortWithError(c, err)
 		return
 	}
 
-	c.JSON(http.StatusCreated, item)
+	c.JSON(201, item)
 }
 
 
